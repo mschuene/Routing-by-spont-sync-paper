@@ -1,0 +1,1536 @@
+import numpy as np
+import matplotlib.pyplot as plt
+#from utils.spectral import *
+from itertools import product
+import pickle
+
+# import numba
+# from numba.types import float32, bool_, int_
+
+# N = 10
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+
+# for i,J_att in enumerate(np.linspace(0.3e-3,0.4e-3,10)):
+#     for j,Jexc_V1V4 in enumerate(np.logspace(np.log10(0.03e-3),np.log10(0.3e-3),10)):
+#         for k in np.arange(10)+1:
+#             print(100*i+10*j+k)
+#             res = pickle.load(open('/0/maik/attmod/sim_Iaf_3pop/res'+str(int(100*i+10*j+k))+'.pickle','rb'))
+#             scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0]))/10
+#             scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1]))/10
+#             del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_3pop/sc_collected.npz',scA=scA,scB=scB)
+    
+    
+# n = 10
+# rateA = np.zeros((n,n))
+# rateB = np.zeros((n,n))
+# rateV4 = np.zeros((n,n))
+
+# N = 1000
+# T = 100
+
+
+# for i,J_att in enumerate(np.linspace(0.3e-3,0.4e-3,n)):
+#     for j,Jexc_V1V4 in enumerate(np.logspace(np.log10(0.03e-3),np.log10(0.3e-3),n)):
+#         for k in np.arange(n)+1:
+#             print(100*i+10*j+k)
+#             res = pickle.load(open('/0/maik/attmod/sim_Iaf_3pop/res'+str(int(100*i+10*j+k))+'.pickle','rb'))
+#             rateA[i,j]  += (np.sum(res['pop_act'][0,:])/(T*N))/n
+#             rateB[i,j]  += (np.sum(res['pop_act'][1,:])/(T*N))/n
+#             rateV4[i,j] += (np.sum(res['pop_act'][2,:])/(T*N))/n
+#             del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_3pop/pop_act_collected.npz',rateA=rateA,rateB=rateB,rateV4=rateV4)
+    
+    
+# import numba
+# from numba.types import float32, bool_, int_
+
+# N = 10
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+
+# f0 = 4.84
+# freqs = f0*1.2**np.arange(20)
+
+# fmask = (freqs>29)&(freqs<100)
+
+# for i,J_att in enumerate(np.linspace(0.3e-3,0.4e-3,10)):
+#     for j,Jexc_V1V4 in enumerate(np.logspace(np.log10(0.03e-3),np.log10(0.3e-3),10)):
+#         for k in np.arange(10)+1:
+#             print(100*i+10*j+k)
+#             res = pickle.load(open('/0/maik/attmod/sim_Iaf_3pop/res'+str(int(100*i+10*j+k))+'.pickle','rb'))
+#             scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0][fmask,:]))/10
+#             scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1][fmask,:]))/10
+#             del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_3pop/sc_collected_gamma.npz',scA=scA,scB=scB)
+ 
+
+
+# import numba
+# from numba.types import float32, bool_, int_
+
+# N = 10
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+
+# for i,J_att in enumerate(np.linspace(0.3e-3,0.4e-3,10)):
+#     for j,Jexc_V1V4 in enumerate(np.logspace(np.log10(0.03e-3),np.log10(0.3e-3),10)):
+#           print(10*i+j+1)
+#           res = pickle.load(open('/0/maik/attmod/sim_Iaf_3pop_weaker_flick/res'+str(int(10*i+1*j+1))+'.pickle','rb'))
+#           scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0]))/1
+#           scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1]))/1
+#           del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_3pop_weaker_flick/sc_collected_weaker_flick.npz',scA=scA,scB=scB)
+
+
+
+
+# N = 10
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+
+# f0 = 4.84
+# freqs = f0*1.2**np.arange(20)
+
+# fmask = (freqs>29)&(freqs<100)
+
+# for i,J_att in enumerate(np.linspace(0.3e-3,0.4e-3,10)):
+#     for j,Jexc_V1V4 in enumerate(np.logspace(np.log10(0.03e-3),np.log10(0.3e-3),10)):
+#             print(10*i+1*j+1)
+#             res = pickle.load(open('/0/maik/attmod/sim_Iaf_3pop_weaker_flick/res'+str(int(10*i+1*j+1))+'.pickle','rb'))
+#             scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0][fmask,:]))/10
+#             scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1][fmask,:]))/10
+#             del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_3pop_weaker_flick/sc_collected_gamma_weaker_flick.npz',scA=scA,scB=scB)
+
+
+
+# N = 1000
+# T = 100
+# n = 40
+# rateA = np.zeros(40)
+# rateB = np.zeros(40)
+# rateV4 = np.zeros(40)
+
+# for i,f_act in enumerate(np.linspace(1,1.4,40)):
+#     res = pickle.load(open('/0/maik/attmod/att_tun_3pop/res'+str(i+1)+'.pickle','rb'))
+#     rateA[i]  += (np.sum(res['pop_act'][0,:])/(T*N))
+#     rateB[i]  += (np.sum(res['pop_act'][1,:])/(T*N))
+#     rateV4[i] += (np.sum(res['pop_act'][2,:])/(T*N))
+#     del res
+
+# np.savez('/0/maik/attmod/att_tun_3pop/pop_act_collected.npz',rateA=rateA,rateB=rateB,rateV4=rateV4)
+
+
+# import numba
+# from numba.types import float32, bool_, int_
+
+# N = 40
+# scA = np.zeros((N,))
+# scB = np.zeros((N,))
+
+# for i,f_act in enumerate(np.linspace(1,1.4,40)):
+#     print(i+1)
+#     res = pickle.load(open('/0/maik/attmod/att_tun_3pop/res'+str(int(i+1))+'.pickle','rb'))
+#     scA[i] += np.sum(np.abs(res['spectral_coherence'][0]))/1
+#     scB[i] += np.sum(np.abs(res['spectral_coherence'][1]))/1
+#     del res
+
+# np.savez('/0/maik/attmod/att_tun_3pop/sc_collected_att_tun.npz',scA=scA,scB=scB)
+
+
+
+# import numba
+# from numba.types import float32, bool_, int_
+
+# N = 15
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+# rateA=np.zeros((N,N))
+# rateB=np.zeros((N,N))
+
+# #param_array = [(Jexc_att,f_fact) for Jexc_att in np.linspace(0.3e-3,0.35e-3,15) for f_fact in np.linspace(1,1.2,15)]
+
+# Jexc_att=np.linspace(0.3e-3,0.35e-3,15)
+# f_fact =np.linspace(1,1.2,15)
+
+# for i,f_fact in enumerate(np.linspace(1,1.2,15)):
+#     for j,Jexc_att in enumerate(np.linspace(0.3e-3,0.35e-3,15)): 
+#         print(i*15+j+1)
+#         res = pickle.load(open('/0/maik/attmod/sim_Iaf_int_vs_ext/res'+str(int(i*15+j+1))+'.pickle','rb'))
+#         scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0]))/1
+#         scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1]))/1
+#         N = 1000;
+#         T = 100
+#         rateA[i,j]  += (np.sum(res['pop_act'][0,:])/(T*N))
+#         rateB[i,j]  += (np.sum(res['pop_act'][1,:])/(T*N))
+        
+#         del res
+
+# np.savez('/0/maik/attmod/sim_Iaf_int_vs_ext/sc_collected_int_vs_ext.npz',scA=scA,scB=scB)
+
+
+
+# N = 20
+# scA = np.zeros((N,N))
+# scB = np.zeros((N,N))
+# #rateA=np.zeros((N,N))
+# #rateB=np.zeros((N,N))
+
+# #param_array = [(Jexc_att,f_fact) for Jexc_att in np.linspace(0.3e-3,0.35e-3,15) for f_fact in np.linspace(1,1.2,15)]
+
+# c1s=np.linspace(0.8,1,20)
+# rate2s=np.linspace(42,82,20)
+
+# for i,c1 in enumerate(c1s):
+#     for j,rate2 in enumerate(rate2s): 
+#         print(i*20+j+1)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker/res'+str(int(i*15+j+1))+'.pickle','rb'))
+#             scA[i,j] += np.sum(np.abs(res['spectral_coherence'][0]))/1
+#             scB[i,j] += np.sum(np.abs(res['spectral_coherence'][1]))/1
+#             #N = 1000;
+#             #T = 100
+#             #rateA[i,j]  += (np.sum(res['pop_act'][0,:])/(T*N))
+#             #rateB[i,j]  += (np.sum(res['pop_act'][1,:])/(T*N))
+#             del res
+#         except:
+#             pass
+        
+
+
+# np.savez('/0/maik/attmod/ehe_flicker/sc_collected_ehe_flicker.npz',scA=scA,scB=scB)
+
+
+
+# N = 20
+# scflickA4 = np.zeros((N,N,3))
+# scflickB4 = np.zeros((N,N,3))
+# scV1aV4 = np.zeros((N,N,3))
+# scV1bV4 = np.zeros((N,N,3))
+# scfA4 = np.zeros((N,N,3))
+# scfB4 = np.zeros((N,N,3))
+# scflickAA = np.zeros((N,N,3))
+# scflickBB = np.zeros((N,N,3))
+# scfAA = np.zeros((N,N,3))
+# scfBB = np.zeros((N,N,3))
+
+
+# c1s=np.linspace(0.8,1,20)
+# c2s=np.linspace(0.8,1,20)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(20)
+#                             for c2 in np.arange(20)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_subnets_1000/res'+str(i+1)+'.pickle','rb'))
+#             [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+    
+#             scV1aV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4A))
+#             scV1bV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4B))
+#             scflickA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickA))
+#             scflickB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickB))
+#             scfA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fA))
+#             scfB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fB))
+#             scflickAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickAA))
+#             scflickBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickBB))
+#             scfAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfAA))
+#             scfBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfBB))
+#         except:
+#                 print('exception',i)
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_subnets2/sc_collected_ehe_flicker_subnets_1000.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB,
+#          scfAA=scfAA, scfBB=scfBB)
+
+
+
+# TODO Extract also the correlations
+
+# N = 10
+# time_bins = [0.25e-3,0.5e-3,1e-3,2e-3,4e-3,8e-3,10e-3]
+
+# scflickA4 = np.zeros((N,N,3,len(time_bins)))
+# scflickB4 = np.zeros((N,N,3,len(time_bins)))
+# scV1aV4 = np.zeros((N,N,3,len(time_bins)))
+# scV1bV4 = np.zeros((N,N,3,len(time_bins)))
+# scflickAA = np.zeros((N,N,3,len(time_bins)))
+# scflickBB = np.zeros((N,N,3,len(time_bins)))
+
+
+# c1s=np.linspace(0.8,1,20)
+# c2s=np.linspace(0.8,1,20)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(10)
+#                             for c2 in np.arange(10)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_timescales/res'+str(i+1)+'.pickle','rb'))
+#             lfp_cbAV4, lfp_cbBV4, lfp_cbfAV4, lfp_cbfBV4, lfp_cbfAV1, lfp_cbfBV1 = res['spectral coherences']
+#             scV1aV4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbAV4),axis=(1,2))
+#             scV1bV4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbBV4),axis=(1,2))
+#             scflickA4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfAV4),axis=(1,2))
+#             scflickB4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfBV4),axis=(1,2))
+#             scflickAA[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfAV1),axis=(1,2))
+#             scflickBB[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfBV1),axis=(1,2))
+        
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_timescales/sc_collected_ehe_flicker_timescales_nolfp.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scflickAA=scflickAA, scflickBB=scflickBB)
+
+
+# N = 10
+# time_bins = [0.25e-3,0.5e-3,1e-3,2e-3,4e-3,8e-3,10e-3]
+
+# ccflickA4 = np.zeros((N,N,3,len(time_bins)))
+# ccflickB4 = np.zeros((N,N,3,len(time_bins)))
+# ccV1aV4 = np.zeros((N,N,3,len(time_bins)))
+# ccV1bV4 = np.zeros((N,N,3,len(time_bins)))
+# ccflickAA = np.zeros((N,N,3,len(time_bins)))
+# ccflickBB = np.zeros((N,N,3,len(time_bins)))
+
+
+# c1s=np.linspace(0.8,1,20)
+# c2s=np.linspace(0.8,1,20)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(10)
+#                             for c2 in np.arange(10)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_timescales/res'+str(i+1)+'.pickle','rb'))
+#             lfp_ccbAV4, lfp_ccbBV4, lfp_ccbfAV4, lfp_ccbfBV4, lfp_ccbfAV1, lfp_ccbfBV1 = res['lfp_correlations']
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfBV4
+#             ccflickAA[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfAV1
+#             ccflickBB[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfBV1
+        
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_timescales/cc_collected_ehe_flicker_timescales.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccflickAA=ccflickAA, ccflickBB=ccflickBB)
+
+
+
+# N = 10
+# scflickA4 = np.zeros((N,N,3))
+# scflickB4 = np.zeros((N,N,3))
+# scV1aV4 = np.zeros((N,N,3))
+# scV1bV4 = np.zeros((N,N,3))
+# scfA4 = np.zeros((N,N,3))
+# scfB4 = np.zeros((N,N,3))
+# scflickAA = np.zeros((N,N,3))
+# scflickBB = np.zeros((N,N,3))
+# scfAA = np.zeros((N,N,3))
+# scfBB = np.zeros((N,N,3))
+
+
+# c1s=np.linspace(0.85,0.95,10)
+# c2s=np.linspace(0.85,0.95,10)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(10)
+#                             for c2 in np.arange(10)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+# #        try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_dt_1000/res'+str(i+1)+'.pickle','rb'))
+#             [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+    
+#             scV1aV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4A))
+#             scV1bV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4B))
+#             scflickA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickA))
+#             scflickB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickB))
+#             scfA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fA))
+#             scfB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fB))
+#             scflickAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickAA))
+#             scflickBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickBB))
+#             scfAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfAA))
+#             scfBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfBB))
+#         # except:
+#         #         print('exception',i)
+#         #         pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_subnets2/sc_collected_ehe_flicker_dt_1000.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB,
+#          scfAA=scfAA, scfBB=scfBB)
+
+
+
+# N = 10
+
+# time_bins = [0.25e-3,0.5e-3,1e-3,2.5e-3,10e-3]
+# scflickA4 = np.zeros((N,N,3,len(time_bins)))
+# scflickB4 = np.zeros((N,N,3,len(time_bins)))
+# scV1aV4 = np.zeros((N,N,3,len(time_bins)))
+# scV1bV4 = np.zeros((N,N,3,len(time_bins)))
+# scflickAA = np.zeros((N,N,3,len(time_bins)))
+# scflickBB = np.zeros((N,N,3,len(time_bins)))
+
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(10)
+#                             for c2 in np.arange(10)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_timescales_dt/res'+str(i+1)+'.pickle','rb'))
+#             lfp_cbAV4, lfp_cbBV4, lfp_cbfAV4, lfp_cbfBV4, lfp_cbfAV1, lfp_cbfBV1 = res['lfp_spectral coherences']
+#             scV1aV4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbAV4),axis=(1,2))
+#             scV1bV4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbBV4),axis=(1,2))
+#             scflickA4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfAV4),axis=(1,2))
+#             scflickB4[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfBV4),axis=(1,2))
+#             scflickAA[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfAV1),axis=(1,2))
+#             scflickBB[c1_idx,c2_idx,c3_idx,:] = np.sum(np.abs(lfp_cbfBV1),axis=(1,2))
+        
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_timescales_dt/sc_collected_ehe_flicker_timescales_dt.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scflickAA=scflickAA, scflickBB=scflickBB)
+
+
+# N = 10
+# time_bins = [0.25e-3,0.5e-3,1e-3,2.5e-3,10e-3]
+# ccflickA4 = np.zeros((N,N,3,len(time_bins)))
+# ccflickB4 = np.zeros((N,N,3,len(time_bins)))
+# ccV1aV4 = np.zeros((N,N,3,len(time_bins)))
+# ccV1bV4 = np.zeros((N,N,3,len(time_bins)))
+# ccflickAA = np.zeros((N,N,3,len(time_bins)))
+# ccflickBB = np.zeros((N,N,3,len(time_bins)))
+
+
+# c1s=np.linspace(0.8,1,20)
+# c2s=np.linspace(0.8,1,20)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(10)
+#                             for c2 in np.arange(10)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_timescales_dt/res'+str(i+1)+'.pickle','rb'))
+#             lfp_ccbAV4, lfp_ccbBV4, lfp_ccbfAV4, lfp_ccbfBV4, lfp_ccbfAV1, lfp_ccbfBV1 = res['lfp_correlations']
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfBV4
+#             ccflickAA[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfAV1
+#             ccflickBB[c1_idx,c2_idx,c3_idx,:] = lfp_ccbfBV1
+        
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_timescales_dt/cc_collected_ehe_flicker_timescales_dt.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccflickAA=ccflickAA, ccflickBB=ccflickBB)
+
+# nf=[125,250,500,1000]
+# c1 = np.linspace(0,1,100)
+# idx_param_array = [(c1,nf) for nf in range(len([125,250,500,1000]))
+#                    for c1 in range(len(np.linspace(0,1,100)))]
+
+
+# scs = np.zeros((len(nf),len(c1)))
+# ccs = np.zeros((len(nf),len(c1)))
+# rates = np.zeros((len(nf),len(c1)))
+
+
+# for i,(ci,nfi) in enumerate(idx_param_array):
+#             #try:
+#                         print(i,flush=True)
+#                         res = pickle.load(open('/0/maik/attmod/ehe_flicker_v1/res'+str(i+1)+'.pickle','rb'))
+#                         scs[nfi,ci] = np.sum(res['sc'])
+#                         ccs[nfi,ci] = res['cc']
+#                         rates[nfi,ci] = res['rate']
+#             #except:
+#                         #print('error at',i)
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_v1/sc_collected_ehe_flicker_v1.npz',
+#           scs=scs,ccs=ccs,rates=rates)
+
+
+
+# N = 50
+# ccflickA4 = np.zeros((N,N,3))
+# ccflickB4 = np.zeros((N,N,3))
+# ccV1aV4 = np.zeros((N,N,3))
+# ccV1bV4 = np.zeros((N,N,3))
+# ccfA4 = np.zeros((N,N,3))
+# ccfB4 = np.zeros((N,N,3))
+# ccflickAA = np.zeros((N,N,3))
+# ccflickBB = np.zeros((N,N,3))
+# ccfAA = np.zeros((N,N,3))
+# ccfBB = np.zeros((N,N,3))
+
+
+# c1s=np.linspace(0.5,1,50)
+# c2s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(50)
+#                             for c2 in np.arange(50)
+#                             for radv in np.arange(3)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+# #        try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_iaf/res'+str(i+1)+'.pickle','rb'))
+#             print(res.keys(),flush=True)
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+            
+#             ccV1aV4[c1_idx,c2_idx,c3_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx] = ccfAV4
+#             ccfB4[c1_idx,c2_idx,c3_idx] = ccfBV4
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         # except:
+#         #         print('exception',i)
+#         #         pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_iaf/sc_collected_ehe_flicker_iaf.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+
+
+# N = 50
+# scflickA4 = np.zeros((N,6,2))
+# scflickB4 = np.zeros((N,6,2))
+# scV1aV4 = np.zeros((N,6,2))
+# scV1bV4 = np.zeros((N,6,2))
+# scfA4 = np.zeros((N,6,2))
+# scfB4 = np.zeros((N,6,2))
+# scflickAA = np.zeros((N,6,2))
+# scflickBB = np.zeros((N,6,2))
+# scfAA = np.zeros((N,6,2))
+# scfBB = np.zeros((N,6,2))
+
+
+# ccflickA4 = np.zeros((N,6,2))
+# ccflickB4 = np.zeros((N,6,2))
+# ccV1aV4 = np.zeros((N,6,2))
+# ccV1bV4 = np.zeros((N,6,2))
+# ccfA4 = np.zeros((N,6,2))
+# ccfB4 = np.zeros((N,6,2))
+# ccflickAA = np.zeros((N,6,2))
+# ccflickBB = np.zeros((N,6,2))
+# ccfAA = np.zeros((N,6,2))
+# ccfBB = np.zeros((N,6,2))
+
+
+# c1s=np.linspace(0.85,0.95,10)
+# radv = np.linspace(0,10,3)
+
+
+# idx_param_array = [(c1,radv,method)
+#                    for c1 in np.arange(25)
+#                    for radv in np.arange(6)
+#                    for method in np.arange(2)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+#             try:
+#                        res = pickle.load(open('/0/maik/attmod/ehe_flicker_dt_advantage/res'+str(i+1)+'.pickle','rb'))
+#                        [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+#                        scV1aV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4A))
+#                        scV1bV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4B))
+#                        scflickA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickA))
+#                        scflickB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickB))
+#                        scfA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fA))
+#                        scfB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fB))
+#                        scflickAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickAA))
+#                        scflickBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickBB))
+#                        scfAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfAA))
+#                        scfBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfBB))
+#                        [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+#                        ccV1aV4[c1_idx,c2_idx,c3_idx] = ccbAV4
+#                        ccV1bV4[c1_idx,c2_idx,c3_idx] = ccbBV4
+#                        ccflickA4[c1_idx,c2_idx,c3_idx] = ccbfAV4
+#                        ccflickB4[c1_idx,c2_idx,c3_idx] = ccbfBV4
+#                        ccfA4[c1_idx,c2_idx,c3_idx] = ccfAV4
+#                        ccfB4[c1_idx,c2_idx,c3_idx] = ccfBV4
+#                        # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#                        # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#                        # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#                        # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+                       
+#             except:
+#                 print('exception',i)
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_dt_advantage/sc_collected_ehe_flicker_dt_advantage.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB,
+#          scfAA=scfAA, scfBB=scfBB,
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+
+
+
+# N = 50
+# ccflickA4 = np.zeros((N,6,2))
+# ccflickB4 = np.zeros((N,6,2))
+# ccV1aV4 = np.zeros((N,6,2))
+# ccV1bV4 = np.zeros((N,6,2))
+# ccfA4 = np.zeros((N,6,2))
+# ccfB4 = np.zeros((N,6,2))
+# ccflickAA = np.zeros((N,6,2))
+# ccflickBB = np.zeros((N,6,2))
+# ccfAA = np.zeros((N,6,2))
+# ccfBB = np.zeros((N,6,2))
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv) for c1 in np.arange(50)
+#                             for c2 in np.arange(6)
+#                             for radv in np.arange(2)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             print(i,flush=True)
+# #        try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_iaf_advantage/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+            
+#             ccV1aV4[c1_idx,c2_idx,c3_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx] = ccfAV4
+#             ccfB4[c1_idx,c2_idx,c3_idx] = ccfBV4
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         # except:
+#         #         print('exception',i)
+#         #         pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_iaf_advantage/sc_collected_ehe_flicker_iaf_advantage.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+# #
+
+
+
+
+# N = 50
+# ccflickA4 = np.zeros((N,3,2,10))
+# ccflickB4 = np.zeros((N,3,2,10))
+# ccV1aV4 = np.zeros((N,3,2,10))
+# ccV1bV4 = np.zeros((N,3,2,10))
+# ccfA4 = np.zeros((N,3,2,10))
+# ccfB4 = np.zeros((N,3,2,10))
+# ccflickAA = np.zeros((N,3,2,10))
+# ccflickBB = np.zeros((N,3,2,10))
+# ccfAA = np.zeros((N,3,2,10))
+# ccfBB = np.zeros((N,3,2,10))
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(50)
+#                    for c2 in np.arange(3)
+#                    for radv in np.arange(2)
+#                    for trial in range(10)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_iaf_advantage/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+            
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_iaf_advantage/sc_collected_ehe_flicker_iaf_advantage.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+
+
+#####################################################################################
+# N = 25
+
+# scflickA4 = np.zeros((N,3,2))
+# scflickB4 = np.zeros((N,3,2))
+# scV1aV4 = np.zeros((N,3,2))
+# scV1bV4 = np.zeros((N,3,2))
+# scfA4 = np.zeros((N,3,2))
+# scfB4 = np.zeros((N,3,2))
+# scflickAA = np.zeros((N,3,2))
+# scflickBB = np.zeros((N,3,2))
+# scfAA = np.zeros((N,3,2))
+# scfBB = np.zeros((N,3,2))
+
+
+
+# ccflickA4 = np.zeros((N,3,2))
+# ccflickB4 = np.zeros((N,3,2))
+# ccV1aV4 = np.zeros((N,3,2))
+# ccV1bV4 = np.zeros((N,3,2))
+# ccfA4 = np.zeros((N,3,2))
+# ccfB4 = np.zeros((N,3,2))
+# ccflickAA = np.zeros((N,3,2))
+# ccflickBB = np.zeros((N,3,2))
+# ccfAA = np.zeros((N,3,2))
+# ccfBB = np.zeros((N,3,2))
+
+
+# c1s=np.linspace(0.85,0.95,10)
+# radv = np.linspace(0,10,3)
+
+
+# idx_param_array = [(c1,radv,method)
+#                    for c1 in np.arange(25)
+#                    for radv in np.arange(3)
+#                    for method in np.arange(2)]
+
+
+# for i,(c1_idx,c2_idx,c3_idx) in enumerate(idx_param_array):
+#             #print(i,flush=True)
+#             #try:
+#                        res = pickle.load(open('/0/maik/attmod/ehe_flicker_threshold_advantage_thresh5/res'+str(i+1)+'.pickle','rb'))
+#                        [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+#                        scV1aV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4A))
+#                        scV1bV4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4B))
+#                        scflickA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickA))
+#                        scflickB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4flickB))
+#                        scfA4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fA))
+#                        scfB4[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(c4fB))
+#                        scflickAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickAA))
+#                        scflickBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cflickBB))
+#                        scfAA[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfAA))
+#                        scfBB[c1_idx,c2_idx,c3_idx] = np.sum(np.abs(cfBB))
+#                        [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+#                        ccV1aV4[c1_idx,c2_idx,c3_idx] = ccbAV4
+#                        ccV1bV4[c1_idx,c2_idx,c3_idx] = ccbBV4
+#                        ccflickA4[c1_idx,c2_idx,c3_idx] = ccbfAV4
+#                        ccflickB4[c1_idx,c2_idx,c3_idx] = ccbfBV4
+#                        ccfA4[c1_idx,c2_idx,c3_idx] = ccfAV4
+#                        ccfB4[c1_idx,c2_idx,c3_idx] = ccfBV4
+#                        # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#                        # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#                        # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#                        # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+                       
+#             #except:
+#             #    print('exception',i)
+#             #    pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_threshold_advantage_thresh5/sc_collected_ehe_flicker_threshold_advantage_thresh5.npz',
+#          scV1aV4=scV1aV4,scV1bV4=scV1bV4,scflickA4=scflickA4,scflickB4=scflickB4,
+#          scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB,
+#          scfAA=scfAA, scfBB=scfBB,
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+
+##############################################################################################################################################
+
+# N = 50
+# ccflickA4 = np.zeros((N,3,2,10))
+# ccflickB4 = np.zeros((N,3,2,10))
+# ccV1aV4 = np.zeros((N,3,2,10))
+# ccV1bV4 = np.zeros((N,3,2,10))
+# ccfA4 = np.zeros((N,3,2,10))
+# ccfB4 = np.zeros((N,3,2,10))
+# ccflickAA = np.zeros((N,3,2,10))
+# ccflickBB = np.zeros((N,3,2,10))
+# ccfAA = np.zeros((N,3,2,10))
+# ccfBB = np.zeros((N,3,2,10))
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(50)
+#                    for c2 in np.arange(3)
+#                    for radv in np.arange(2)
+#                    for trial in range(10)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_iaf_advantage_1000/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+            
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_iaf_advantage_1000/sc_collected_ehe_flicker_iaf_advantage_1000.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+
+
+
+
+# N = 50
+# ccflickA4 = np.zeros((N,3,2,10))
+# ccflickB4 = np.zeros((N,3,2,10))
+# ccV1aV4 = np.zeros((N,3,2,10))
+# ccV1bV4 = np.zeros((N,3,2,10))
+# ccfA4 = np.zeros((N,3,2,10))
+# ccfB4 = np.zeros((N,3,2,10))
+# ccflickA4_leak = np.zeros((N,3,2,10))
+# ccflickB4_leak = np.zeros((N,3,2,10))
+# ccV1aV4_leak = np.zeros((N,3,2,10))
+# ccV1bV4_leak = np.zeros((N,3,2,10))
+# ccfA4_leak = np.zeros((N,3,2,10))
+# ccfB4_leak = np.zeros((N,3,2,10))
+
+# ccflickAA = np.zeros((N,3,2,10))
+# ccflickBB = np.zeros((N,3,2,10))
+# ccfAA = np.zeros((N,3,2,10))
+# ccfBB = np.zeros((N,3,2,10))
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(50)
+#                    for c2 in np.arange(3)
+#                    for radv in np.arange(2)
+#                    for trial in range(10)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_threshold_iaf_advantage/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+#             [ccAV4_leak,ccBV4_leak,ccbAV4_leak,ccbBV4_leak,ccfinpAV4_leak,ccfinpBV4_leak,ccbfAV4_leak,ccbfBV4_leak,ccfAV4_leak,ccfBV4_leak] = res['correlations leak']
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4            
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+
+#             ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4_leak
+#             ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4_leak
+#             ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4_leak
+#             ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4_leak
+#             ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4_leak
+#             ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4_leak
+            
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+                
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_threshold_iaf_advantage/sc_collected_ehe_flicker_threshold_iaf_advantage.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4,ccV1aV4_leak=ccV1aV4_leak,ccV1bV4_leak=ccV1bV4_leak,
+#          ccflickA4_leak=ccflickA4_leak,ccflickB4_leak=ccflickB4_leak,
+#          ccfA4_leak=ccfA4_leak, ccfB4_leak=ccfB4_leak)
+
+
+
+# ##########################################################################
+# N = 50
+# t = 10
+# ccflickA4 = np.zeros((N,3,2,t))
+# ccflickB4 = np.zeros((N,3,2,t))
+# ccV1aV4 = np.zeros((N,3,2,t))
+# ccV1bV4 = np.zeros((N,3,2,t))
+# ccfA4 = np.zeros((N,3,2,t))
+# ccfB4 = np.zeros((N,3,2,t))
+# ccflickA4_leak = np.zeros((N,3,2,t))
+# ccflickB4_leak = np.zeros((N,3,2,t))
+# ccV1aV4_leak = np.zeros((N,3,2,t))
+# ccV1bV4_leak = np.zeros((N,3,2,t))
+# ccfA4_leak = np.zeros((N,3,2,t))
+# ccfB4_leak = np.zeros((N,3,2,t))
+
+# ccflickA4_leak_dis = np.zeros((N,3,2,t))
+# ccflickB4_leak_dis = np.zeros((N,3,2,t))
+# ccV1aV4_leak_dis = np.zeros((N,3,2,t))
+# ccV1bV4_leak_dis = np.zeros((N,3,2,t))
+# ccfA4_leak_dis = np.zeros((N,3,2,t))
+# ccfB4_leak_dis = np.zeros((N,3,2,t))
+
+
+# ccflickAA = np.zeros((N,3,2,t))
+# ccflickBB = np.zeros((N,3,2,t))
+# ccfAA = np.zeros((N,3,2,t))
+# ccfBB = np.zeros((N,3,2,t))
+
+
+# scflickA4 = np.zeros((N,3,2,t))
+# scflickB4 = np.zeros((N,3,2,t))
+# scV1aV4 = np.zeros((N,3,2,t))
+# scV1bV4 = np.zeros((N,3,2,t))
+# scfA4 = np.zeros((N,3,2,t))
+# scfB4 = np.zeros((N,3,2,t))
+# scflickAA = np.zeros((N,3,2,t))
+# scflickBB = np.zeros((N,3,2,t))
+# scfAA = np.zeros((N,3,2,t))
+# scfBB = np.zeros((N,3,2,t))
+
+
+# scflickA4_leak = np.zeros((N,3,2,t))
+# scflickB4_leak = np.zeros((N,3,2,t))
+# scV1aV4_leak = np.zeros((N,3,2,t))
+# scV1bV4_leak = np.zeros((N,3,2,t))
+# scfA4_leak = np.zeros((N,3,2,t))
+# scfB4_leak = np.zeros((N,3,2,t))
+# scflickAA_leak = np.zeros((N,3,2,t))
+# scflickBB_leak = np.zeros((N,3,2,t))
+# scfAA_leak = np.zeros((N,3,2,t))
+# scfBB_leak = np.zeros((N,3,2,t))
+
+
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(50)
+#                    for c2 in np.arange(3)
+#                    for radv in np.arange(2)
+#                    for trial in range(t)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_threshold_iaf_dis_advantage_sc/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+#             [ccAV4_leak,ccBV4_leak,ccbAV4_leak,ccbBV4_leak,ccfinpAV4_leak,ccfinpBV4_leak,ccbfAV4_leak,ccbfBV4_leak,ccfAV4_leak,ccfBV4_leak] = res['correlations leak']
+#             [ccAV4_leak_dis,ccBV4_leak_dis,ccbAV4_leak_dis,ccbBV4_leak_dis,ccfinpAV4_leak_dis,ccfinpBV4_leak_dis,ccbfAV4_leak_dis,ccbfBV4_leak_dis,ccfAV4_leak_dis,ccfBV4_leak_dis] = res['correlations leak_dis']
+
+#             [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+#             [c4A_leak,c4B_leak,c4flickA_leak,c4flickB_leak,c4fA_leak,c4fB_leak] = res['spectral coherences leak']
+
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4            
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+
+#             ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4_leak
+#             ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4_leak
+#             ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4_leak
+#             ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4_leak
+#             ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4_leak
+#             ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4_leak
+
+#             ccV1aV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4_leak_dis
+#             ccV1bV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4_leak_dis
+#             ccflickA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4_leak_dis
+#             ccflickB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4_leak_dis
+#             ccfA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4_leak_dis
+#             ccfB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4_leak_dis
+
+
+#             scV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4A))
+#             scV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4B))
+#             scflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickA))
+#             scflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickB))
+#             scfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fA))
+#             scfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fB))
+#             scflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cflickAA))
+#             scflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cflickBB))
+#             scfAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cfAA))
+#             scfBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cfBB))
+
+#             scV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4A_leak))
+#             scV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4B_leak))
+#             scflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickA_leak))
+#             scflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickB_leak))
+#             scfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fA_leak))
+#             scfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fB_leak))
+
+            
+#             # ccflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 ccV1aV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 scV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+                
+#                 scV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickAA_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickBB_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfAA_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfBB_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+##
+
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_threshold_iaf_dis_advantage_sc/sc_collected_ehe_flicker_threshold_iaf_dis_advantage_sc.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4,ccV1aV4_leak=ccV1aV4_leak,ccV1bV4_leak=ccV1bV4_leak,
+#          ccflickA4_leak=ccflickA4_leak,ccflickB4_leak=ccflickB4_leak,
+#          ccfA4_leak=ccfA4_leak, ccfB4_leak=ccfB4_leak,ccV1aV4_leak_dis=ccV1aV4_leak_dis,ccV1bV4_leak_dis=ccV1bV4_leak_dis,
+#          ccflickA4_leak_dis=ccflickA4_leak_dis,ccflickB4_leak_dis=ccflickB4_leak_dis,
+#          ccfA4_leak_dis=ccfA4_leak_dis, ccfB4_leak_dis=ccfB4_leak_dis,scV1aV4=scV1aV4, scV1bV4=scV1bV4, scflickA4=scflickA4,
+#          scflickB4=scflickB4, scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB, scfAA=scfAA,
+#          scfBB=scfBB, scV1aV4_leak=scV1aV4_leak, scV1bV4_leak=scV1bV4_leak,
+#          scflickA4_leak=scflickA4_leak, scflickB4_leak=scflickB4_leak, scfA4_leak=scfA4_leak, scfB4_leak=scfB4_leak,
+#          scflickAA_leak=scflickAA_leak, scflickBB_leak=scflickBB_leak, scfAA_leak=scfAA_leak, scfBB_leak=scfBB_leak)
+
+
+
+###################################################################
+
+# N = 50
+# ccflickA4 = np.zeros((N,3,2,5))
+# ccflickB4 = np.zeros((N,3,2,5))
+# ccV1aV4 = np.zeros((N,3,2,5))
+# ccV1bV4 = np.zeros((N,3,2,5))
+# ccfA4 = np.zeros((N,3,2,5))
+# ccfB4 = np.zeros((N,3,2,5))
+# ccflickAA = np.zeros((N,3,2,5))
+# ccflickBB = np.zeros((N,3,2,5))
+# ccfAA = np.zeros((N,3,2,5))
+# ccfBB = np.zeros((N,3,2,5))
+
+
+# c1s=np.linspace(0.5,1,50)
+# radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(50)
+#                    for c2 in np.arange(3)
+#                    for radv in np.arange(2)
+#                    for trial in range(5)]
+
+
+
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/ehe_flicker_iaf_advantage_ext_short/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+            
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+#             # ccflickAA[c1_idx,c2_idx,c3_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/ehe_flicker_iaf_advantage_ext_short/sc_collected_ehe_flicker_iaf_advantage_ext_short.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4)
+
+##########################################################################################################
+# N =80# 5#80
+# t = 15#10#5
+# ra = 1#13
+# ar = 2#3
+# ccflickA4 = np.zeros((N,ra,ar,t))
+# ccflickB4 = np.zeros((N,ra,ar,t))
+# ccV1aV4 = np.zeros((N,ra,ar,t))
+# ccV1bV4 = np.zeros((N,ra,ar,t))
+# ccfA4 = np.zeros((N,ra,ar,t))
+# ccfB4 = np.zeros((N,ra,ar,t))
+# ccflickA4_leak = np.zeros((N,ra,ar,t))
+# ccflickB4_leak = np.zeros((N,ra,ar,t))
+# ccV1aV4_leak = np.zeros((N,ra,ar,t))
+# ccV1bV4_leak = np.zeros((N,ra,ar,t))
+# ccfA4_leak = np.zeros((N,ra,ar,t))
+# ccfB4_leak = np.zeros((N,ra,ar,t))
+
+# ccflickA4_leak_dis = np.zeros((N,ra,ar,t))
+# ccflickB4_leak_dis = np.zeros((N,ra,ar,t))
+# ccV1aV4_leak_dis = np.zeros((N,ra,ar,t))
+# ccV1bV4_leak_dis = np.zeros((N,ra,ar,t))
+# ccfA4_leak_dis = np.zeros((N,ra,ar,t))
+# ccfB4_leak_dis = np.zeros((N,ra,ar,t))
+
+
+# ccflickAA = np.zeros((N,ra,ar,t))
+# ccflickBB = np.zeros((N,ra,ar,t))
+# ccfAA = np.zeros((N,ra,ar,t))
+# ccfBB = np.zeros((N,ra,ar,t))
+
+
+# scflickA4 = np.zeros((N,ra,ar,t))
+# scflickB4 = np.zeros((N,ra,ar,t))
+# scV1aV4 = np.zeros((N,ra,ar,t))
+# scV1bV4 = np.zeros((N,ra,ar,t))
+# scfA4 = np.zeros((N,ra,ar,t))
+# scfB4 = np.zeros((N,ra,ar,t))
+# scflickAA = np.zeros((N,ra,ar,t))
+# scflickBB = np.zeros((N,ra,ar,t))
+# scfAA = np.zeros((N,ra,ar,t))
+# scfBB = np.zeros((N,ra,ar,t))
+
+
+# scflickA4_leak = np.zeros((N,ra,ar,t))
+# scflickB4_leak = np.zeros((N,ra,ar,t))
+# scV1aV4_leak = np.zeros((N,ra,ar,t))
+# scV1bV4_leak = np.zeros((N,ra,ar,t))
+# scfA4_leak = np.zeros((N,ra,ar,t))
+# scfB4_leak = np.zeros((N,ra,ar,t))
+# scflickAA_leak = np.zeros((N,ra,ar,t))
+# scflickBB_leak = np.zeros((N,ra,ar,t))
+# scfAA_leak = np.zeros((N,ra,ar,t))
+# scfBB_leak = np.zeros((N,ra,ar,t))
+
+
+# pop_rates = np.zeros((N,ra,ar,t,5))
+
+# #c1s=np.linspace(0.5,1,50)
+# #radv = np.linspace(0,10,3)
+
+# idx_param_array = [(c1,c2,radv,trial)
+#                    for c1 in np.arange(N)
+#                    for c2 in np.arange(ra)
+#                    for radv in np.arange(2)
+#                    for trial in range(t)]
+
+# proj_name = 'ehe_flicker_sync_biased_competition_inh'#iaf_better_params_more_data'
+
+# for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+#         print(i,flush=True)
+#         try:
+#             res = pickle.load(open('/0/maik/attmod/'+proj_name+'/res'+str(i+1)+'.pickle','rb'))
+#             [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4] = res['correlations']
+#             #[ccAV4_leak,ccBV4_leak,ccbAV4_leak,ccbBV4_leak,ccfinpAV4_leak,ccfinpBV4_leak,ccbfAV4_leak,ccbfBV4_leak,ccfAV4_leak,ccfBV4_leak] = res['correlations leak']
+#             #[ccAV4_leak_dis,ccBV4_leak_dis,ccbAV4_leak_dis,ccbBV4_leak_dis,ccfinpAV4_leak_dis,ccfinpBV4_leak_dis,ccbfAV4_leak_dis,ccbfBV4_leak_dis,ccfAV4_leak_dis,ccfBV4_leak_dis] = res['correlations leak_dis']
+
+#             [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences']
+#             #[c4A_leak,c4B_leak,c4flickA_leak,c4flickB_leak,c4fA_leak,c4fB_leak] = res['spectral coherences leak']
+#             pop_rates[c1_idx,c2_idx,c3_idx,c4_idx,:] = res['pop_acts']
+
+#             ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+#             ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+#             ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+#             ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+#             ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4            
+#             ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+
+#             # ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4_leak
+#             # ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4_leak
+#             # ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4_leak
+#             # ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4_leak
+#             # ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4_leak
+#             # ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4_leak
+ 
+#             # ccV1aV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4_leak_dis
+#             # ccV1bV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4_leak_dis
+#             # ccflickA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4_leak_dis
+#             # ccflickB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4_leak_dis
+#             # ccfA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4_leak_dis
+#             # ccfB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4_leak_dis
+
+
+#             scV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4A))
+#             scV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4B))
+#             scflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickA))
+#             scflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickB))
+#             scfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fA))
+#             scfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fB))
+#             scflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cflickAA))
+#             scflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cflickBB))
+#             scfAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cfAA))
+#             scfBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(cfBB))
+
+#             # scV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4A_leak))
+#             # scV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4B_leak))
+#             # scflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickA_leak))
+#             # scflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4flickB_leak))
+#             # scfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fA_leak))
+#             # scfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.sum(np.abs(c4fB_leak))
+
+            
+#             # ccflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = ccflickAA
+#             # ccflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = ccflickBB
+#             # ccfAA[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAA
+#             # ccfBB[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBB
+#         except:
+#                 print('exception',i)
+#                 ccV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 ccV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 ccV1aV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccV1bV4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccflickB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfA4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 ccfB4_leak_dis[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+#                 scV1aV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scV1bV4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfA4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfB4[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfAA[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfBB[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+                
+#                 scV1aV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scV1bV4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfA4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfB4_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickAA_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scflickBB_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfAA_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+#                 scfBB_leak[c1_idx,c2_idx,c3_idx,c4_idx] = np.nan
+
+
+#                 pass
+
+
+
+
+# np.savez('/0/maik/attmod/'+proj_name+'/sc_collected_'+proj_name+'.npz',
+#          ccV1aV4=ccV1aV4,ccV1bV4=ccV1bV4,ccflickA4=ccflickA4,ccflickB4=ccflickB4,
+#          ccfA4=ccfA4, ccfB4=ccfB4,
+#          ccV1aV4_leak=ccV1aV4_leak,ccV1bV4_leak=ccV1bV4_leak,
+#          ccflickA4_leak=ccflickA4_leak,ccflickB4_leak=ccflickB4_leak,
+#          ccfA4_leak=ccfA4_leak, ccfB4_leak=ccfB4_leak,
+#          ccV1aV4_leak_dis=ccV1aV4_leak_dis,ccV1bV4_leak_dis=ccV1bV4_leak_dis,
+#          ccflickA4_leak_dis=ccflickA4_leak_dis,ccflickB4_leak_dis=ccflickB4_leak_dis,
+#          ccfA4_leak_dis=ccfA4_leak_dis, ccfB4_leak_dis=ccfB4_leak_dis,
+#          scV1aV4=scV1aV4, scV1bV4=scV1bV4, scflickA4=scflickA4,
+#          scflickB4=scflickB4, scfA4=scfA4, scfB4=scfB4, scflickAA=scflickAA, scflickBB=scflickBB, scfAA=scfAA,
+#          scfBB=scfBB, 
+#          scV1aV4_leak=scV1aV4_leak, scV1bV4_leak=scV1bV4_leak,
+#          scflickA4_leak=scflickA4_leak, scflickB4_leak=scflickB4_leak, scfA4_leak=scfA4_leak, scfB4_leak=scfB4_leak,
+#          scflickAA_leak=scflickAA_leak, scflickBB_leak=scflickBB_leak, scfAA_leak=scfAA_leak, scfBB_leak=scfBB_leak,
+#          ppo_rates=pop_rates         
+#          )
+
+
+
+
+# param_array = [(c1,radv,method,trial)
+#                for c1 in np.linspace(0.2,1,20)
+#                for radv in [12]
+#                for method in ['int']#,'ext']
+#                for trial in range(15)]
+
+
+N =20# 5#80
+t = 15#10#5
+ra = 1#13
+ar = 1#2#3
+ccflickA4 = np.zeros((N,ra,ar,t))
+idx_param_array = [(c1,c2,radv,trial)
+                   for c1 in np.arange(N)
+                   for c2 in np.arange(ra)
+                   for radv in np.arange(ar)
+                   for trial in range(t)]
+
+proj_name = 'ehe_flicker_embed_thresh5_adddrive'
+# 'ehe_flicker_sync_new_c3_thresh5_c01'#'ehe_flicker_sync_new_c3_thresh1'#iaf_better_params_more_data'
+
+r_A = np.zeros((N,ra,ar,t))+np.nan
+r_B = np.zeros((N,ra,ar,t))+np.nan
+r_4 = np.zeros((N,ra,ar,t))+np.nan
+
+c_ccAV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccBV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccbAV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccbBV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccfinpAV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccfinpBV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccbfAV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccbfBV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccfAV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccfBV4 = np.zeros((N,ra,ar,t))+np.nan
+c_ccfAA = np.zeros((N,ra,ar,t))+np.nan
+c_ccfBB = np.zeros((N,ra,ar,t))+np.nan
+
+sc4A = np.zeros((N,ra,ar,t,100))+np.nan
+sc4B = np.zeros((N,ra,ar,t,100))+np.nan
+sc4flickA = np.zeros((N,ra,ar,t,100))+np.nan
+sc4flickB = np.zeros((N,ra,ar,t,100))+np.nan
+sc4fA = np.zeros((N,ra,ar,t,100))+np.nan
+sc4fB = np.zeros((N,ra,ar,t,100))+np.nan
+scfAA = np.zeros((N,ra,ar,t,100))+np.nan
+scfBB = np.zeros((N,ra,ar,t,100))+np.nan
+scflickAA = np.zeros((N,ra,ar,t,100))+np.nan
+scflickBB = np.zeros((N,ra,ar,t,100))+np.nan
+
+
+for i,(c1_idx,c2_idx,c3_idx,c4_idx) in enumerate(idx_param_array):
+        #print(i,flush=True)
+        try:
+            res = pickle.load(open('/0/maik/attmod/'+proj_name+'/res'+str(i+1)+'.pickle','rb'))
+            # pop acts neu für embed
+            [pop_act_A,pop_act_B,pop_act_V4,_,_] = res['pop_acts']
+            r_A[c1_idx,c2_idx,c3_idx,c4_idx] = pop_act_A
+            r_B[c1_idx,c2_idx,c3_idx,c4_idx] = pop_act_B
+            r_4[c1_idx,c2_idx,c3_idx,c4_idx] = pop_act_V4
+            [ccAV4,ccBV4,ccbAV4,ccbBV4,ccfinpAV4,ccfinpBV4,ccbfAV4,ccbfBV4,ccfAV4,ccfBV4,ccfAA,ccfBB] = res['correlations']
+            c_ccAV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccAV4
+            c_ccBV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccBV4
+            c_ccbAV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbAV4
+            c_ccbBV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbBV4
+            c_ccfinpAV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfinpAV4
+            c_ccfinpBV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfinpBV4
+            c_ccbfAV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfAV4
+            c_ccbfBV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccbfBV4
+            c_ccfAV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAV4
+            c_ccfBV4[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBV4
+            c_ccfAA[c1_idx,c2_idx,c3_idx,c4_idx] = ccfAA
+            c_ccfBB[c1_idx,c2_idx,c3_idx,c4_idx] = ccfBB
+
+            [c4A,c4B,c4flickA,c4flickB,c4fA,c4fB,cfAA,cfBB,cflickAA,cflickBB] = res['spectral coherences tau=0']
+            sc4A[c1_idx,c2_idx,c3_idx,c4_idx] = c4A
+            sc4B[c1_idx,c2_idx,c3_idx,c4_idx] = c4B
+            sc4flickA[c1_idx,c2_idx,c3_idx,c4_idx] = c4flickA
+            sc4flickB[c1_idx,c2_idx,c3_idx,c4_idx] = c4flickB
+            sc4fA[c1_idx,c2_idx,c3_idx,c4_idx] = c4fA
+            sc4fB[c1_idx,c2_idx,c3_idx,c4_idx] = c4fB
+            scfAA[c1_idx,c2_idx,c3_idx,c4_idx] = cfAA
+            scfBB[c1_idx,c2_idx,c3_idx,c4_idx] = cfBB
+            scflickAA[c1_idx,c2_idx,c3_idx,c4_idx] = cflickAA
+            scflickBB[c1_idx,c2_idx,c3_idx,c4_idx] = cflickBB
+        except:
+            print('exception',i,flush=True)
+            pass
+            
+            
+np.savez('/0/maik/attmod/'+proj_name+'/sc_collected_'+proj_name+'.npz',
+         r_A=r_A,
+         r_B=r_B,
+         r_4=r_4,
+         c_ccAV4=c_ccAV4,         
+         c_ccBV4=c_ccBV4,
+         c_ccbAV4=c_ccbAV4,
+         c_ccbBV4=c_ccbBV4,
+         c_ccfinpAV4=c_ccfinpAV4,
+         c_ccfinpBV4=c_ccfinpBV4,
+         c_ccbfAV4=c_ccbfAV4,
+         c_ccbfBV4=c_ccbfBV4,
+         c_ccfAV4=c_ccfAV4,
+         c_ccfBV4=c_ccfBV4,
+         c_ccfAA=c_ccfAA,
+         c_ccfBB=c_ccfBB,
+         sc4A=sc4A,
+         sc4B=sc4B,
+         sc4flickA=sc4flickA,
+         sc4flickB=sc4flickB,
+         sc4fA=sc4fA,
+         sc4fB=sc4fB,
+         scfAA=scfAA,
+         scfBB=scfBB,
+         scflickAA=scflickAA,
+         scflickBB=scflickBB)
